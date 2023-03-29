@@ -1,11 +1,20 @@
 import './App.css'
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
+
+import GetRoutes from './utils/routes';
 
 function App() {
 
+  const router = createBrowserRouter(
+    createRoutesFromElements(GetRoutes())
+  );
+
   return (
-    <div className="App">
-      HELLO WORLD
-    </div>
+    <RouterProvider router={router} />
   )
 }
 
