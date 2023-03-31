@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import Header from '@/components/Header';
 import Aside from "@/components/Aside";
 import { useAppSelector } from '@/redux-toolkit/hooks';
-import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfiguration';
+import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfigurationSlice';
 import { useEffect } from "react";
 
 

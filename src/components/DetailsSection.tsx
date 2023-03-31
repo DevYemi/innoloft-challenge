@@ -28,7 +28,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                         </div>
                     }
                     <p className='grid grid-cols-[repeat(auto-fill,_minmax(80px,_1fr))] gap-3'>
-                        <span className='flex items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
+                        <span className='flex  justify-between items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                             <small>Label 1</small>
                             {
                                 page === "edit-product" &&
@@ -36,14 +36,14 @@ function DetailsSection({ page }: ProductSectionTypes) {
                             }
 
                         </span>
-                        <span className='flex items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
+                        <span className='flex  justify-between items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                             <small>Label 2</small>
                             {
                                 page === "edit-product" &&
                                 <small> <XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
                             }
                         </span>
-                        <span className='flex items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
+                        <span className='flex  justify-between items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                             <small>Label 3</small>
                             {
                                 page === "edit-product" &&
@@ -71,21 +71,21 @@ function DetailsSection({ page }: ProductSectionTypes) {
                         </div>
                     }
                     <p className='grid grid-cols-[repeat(auto-fill,_minmax(80px,_1fr))] gap-3'>
-                        <span className='flex items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
+                        <span className='flex  justify-between items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                             <small>Label 1</small>
                             {
                                 page === "edit-product" &&
                                 <small> <XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
                             }
                         </span>
-                        <span className='flex items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
+                        <span className='flex  justify-between items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                             <small>Label 2</small>
                             {
                                 page === "edit-product" &&
                                 <small> <XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
                             }
                         </span>
-                        <span className='flex items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
+                        <span className='flex  justify-between items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                             <small>Label 3</small>
                             {
                                 page === "edit-product" &&
@@ -116,7 +116,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                     }
 
                     <p className='grid grid-cols-[repeat(auto-fill,_minmax(100%,_1fr))] gap-3'>
-                        <span className='flex items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
+                        <span className='flex  justify-between items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                             <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus sit sapiente voluptas alias quo similique velit eaque vitae obcaecati possimus maxime et sequi itaque repellendus optio voluptate, consequatur eius! Odio.</small>
                             {
                                 page === "edit-product" &&
@@ -144,7 +144,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                         </div>
                     }
                     <p className='grid grid-cols-[repeat(auto-fill,_minmax(80px,_1fr))] gap-3'>
-                        <span className='flex items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
+                        <span className='flex  justify-between items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                             <small>1000$</small>
                             {
                                 page === "edit-product" &&

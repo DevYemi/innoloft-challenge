@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { } from 'react-redux';
 import { toggleAsideDisplay } from '@/redux-toolkit/features/dashboardAside';
 import { useAppDispatch, useAppSelector } from '@/redux-toolkit/hooks';
-import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfiguration';
+import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfigurationSlice';
 
 
 function Header() {

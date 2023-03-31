@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import DetailsSection from '@/components/DetailsSection'
 import VideoSection from '@/components/VideoSection'
 import MainSection from '@/components/MainSection'
-import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfiguration';
+import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfigurationSlice';
 
 function ProductPage() {
     const { data: appConfig } = useGetAppConfigurationQuery(import.meta.env.VITE_APP_ID);

@@ -4,7 +4,7 @@ import avatarImg from '@/assets/code.jpeg'
 import { CheckBadgeIcon, CheckIcon } from "@heroicons/react/24/solid"
 import { MapPinIcon, TrashIcon } from "@heroicons/react/24/outline"
 import ReactQuill from 'react-quill'
-import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfiguration'
+import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfigurationSlice'
 
 function MainSection({ page }: ProductSectionTypes) {
     const { data: appConfig } = useGetAppConfigurationQuery(import.meta.env.VITE_APP_ID);
