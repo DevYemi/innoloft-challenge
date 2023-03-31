@@ -1,21 +1,36 @@
 
 import { Outlet } from "react-router-dom";
 import Header from '@/components/Header';
-import { useCallback, useState } from "react";
 import Aside from "@/components/Aside";
-import { useDispatch, useSelector } from "react-redux";
-import { getDashboardAsideState } from "@/redux-toolkit/features/dashboardAside";
+import { useAppSelector } from '@/redux-toolkit/hooks';
+import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfiguration';
+import { useEffect } from "react";
 
 
 function Dashboard() {
-    const { isOpen: isAsideOpen } = useSelector(getDashboardAsideState);
-    const dispatch = useDispatch()
+    const { isOpen: isAsideOpen } = useAppSelector((state) => state.dashboardAside);
+    const { data: appConfig, error: appConfigError } = useGetAppConfigurationQuery(import.meta.env.VITE_APP_ID);
+
+    console.log(appConfig)
+
+    useEffect(() => {
+        // update color variable after appconfig has been fetched
+        if (appConfig) {
+            let root = document.querySelector(':root') as HTMLElement;
+            root.style.setProperty("--color-primary", appConfig.mainColor)
+        } else if (appConfigError) {
+            let root = document.querySelector(':root') as HTMLElement;
+            root.style.setProperty("--color-primary", "#272e71")
+        }
+
+    }, [appConfig, appConfigError])
+
     return (
         <>
             <div>
                 <Header />
                 <main className='md:flex relative max-w-app-fit mx-auto'>
-                    <section className={`fixed transition-all duration-1000 w-[90%] z-[2]  h-full max-w-[300px] ${isAsideOpen ? "left-0" : "left-[-500px]"} md:w-auto md:max-w-none md:flex-[.3] md:self-start md:h-fit md:sticky md:top-[60px] md:left-0`}>
+                    <section className={`fixed transition-all duration-1000 w-[90%] z-[2]  h-full max-w-[300px] ${isAsideOpen ? "left-0" : "left-[-500px]"} md:w-auto md:max-w-none md:flex-[.3] md:self-start md:h-fit md:sticky md:top-[82px] md:left-0`}>
                         <Aside />
                     </section>
 

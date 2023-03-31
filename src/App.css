@@ -5,6 +5,10 @@
 
 
 @layer base {
+  :root {
+    --color-primary: #ffffff;
+  }
+
   input {
     @apply outline-primary
   }

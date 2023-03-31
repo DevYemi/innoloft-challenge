@@ -10,7 +10,7 @@ function EditProductPage() {
         <div className='px-2 py-4 space-y-5'>
             <div className='flex justify-between items-center'>
                 <h2 className='font-bold'>Offer Title</h2>
-                <Link to={"/product/edit"} className="block font-semibold p-1 bg-primary text-white rounded-md">
+                <Link to={"/product/edit"} className={`block font-semibold p-1 bg-primary text-white rounded-md`}>
                     View Offer
                 </Link>
             </div>

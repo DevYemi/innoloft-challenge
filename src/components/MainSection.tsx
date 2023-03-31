@@ -4,8 +4,10 @@ import avatarImg from '@/assets/code.jpeg'
 import { CheckBadgeIcon, CheckIcon } from "@heroicons/react/24/solid"
 import { MapPinIcon, TrashIcon } from "@heroicons/react/24/outline"
 import ReactQuill from 'react-quill'
+import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfiguration'
 
 function MainSection({ page }: ProductSectionTypes) {
+    const { data: appConfig } = useGetAppConfigurationQuery(import.meta.env.VITE_APP_ID);
     const [description, setDescription] = useState();
 
     const descriptionOnChange = (state: any) => {
@@ -13,7 +15,7 @@ function MainSection({ page }: ProductSectionTypes) {
         console.log(state)
     }
     return (
-        <section id='mainSection' className='rounded-lg border-2 border-gray-300 md:grid md:grid-cols-[1fr,0.7fr] md:gap-4'>
+        <section id='mainSection' className={`rounded-lg border-2 border-gray-300 md:grid ${appConfig?.hasUserSection ? "md:grid-cols-[1fr,0.7fr] md:gap-4" : "grid-cols-1"}  `}>
             <div className=''>
                 <div className='relative'>
                     <img
@@ -22,7 +24,7 @@ function MainSection({ page }: ProductSectionTypes) {
                         className='w-full h-full rounded-t-lg'
                     />
                     <div className='absolute top-0 flex items-center bg-white w-fit rounded-tl-lg rounded-br-lg '>
-                        <span className='block w-fit bg-primary p-2 rounded-tl-lg rounded-br-lg'>
+                        <span className={`block w-fit bg-primary p-2 rounded-tl-lg rounded-br-lg`}>
                             <CheckBadgeIcon className='h-6 w-6 text-white' />
                         </span>
                         <span className='block p-2 w-fit text-black font-bold'>Patent</span>
@@ -54,8 +56,8 @@ function MainSection({ page }: ProductSectionTypes) {
                             <>
                                 <ReactQuill theme="snow" value={description} onChange={descriptionOnChange} />
                                 <div className='flex items-center justify-end ml-auto space-x-4 opacity-40'>
-                                    <button className='text-primary px-3 py-1'>Cancel</button>
-                                    <button className='bg-primary text-white flex items-center space-x-2 px-3 py-1 rounded-lg'>
+                                    <button className={`text-primary px-3 py-1`}>Cancel</button>
+                                    <button className={`bg-${appConfig?.mainColor} text-white flex items-center space-x-2 px-3 py-1 rounded-lg`}>
                                         <CheckIcon className='h-4 w-4 text-white' />
                                         <span>Save</span>
                                     </button>
@@ -73,43 +75,47 @@ function MainSection({ page }: ProductSectionTypes) {
                 </div>
             </div>
 
-
-            <div className='p-2 mt-10 space-y-5 md:p-4 '>
-                <h2 className='font-bold'>Offered By</h2>
-                <div className=''>
-                    <img
-                        width={200}
-                        src={"https://img.innoloft.com/logo.svg"}
-                        alt="company-logo"
-                    />
-                </div>
-                <div className='flex items-center space-x-4'>
-                    <span className='block h-12 w-12 aspect-square border border-yellow rounded-full' >
+            {
+                appConfig?.hasUserSection &&
+                <div className='p-2 mt-10 space-y-5 md:p-4 '>
+                    <h2 className='font-bold'>Offered By</h2>
+                    <div className=''>
                         <img
-                            src={avatarImg}
+                            width={200}
+                            src={"https://img.innoloft.com/logo.svg"}
                             alt="company-logo"
-                            className='w-full rounded-full object-cover h-full'
                         />
-                    </span>
-                    <div className=' text-sm'>
-                        <p className=' font-bold'>Adeyanju Adeyemi</p>
-                        <p className=' font-light'>Innoloft Developer</p>
                     </div>
-                </div>
-                <div className='space-y-3'>
-                    <p className='flex items-center space-x-5'>
-                        <MapPinIcon className='h-5 w-5' />
-                        <span>Jülicher Straße 72a, 52070 Aachen, Germany</span>
-                    </p>
-                    {
-                        page !== "edit-product" &&
-                        <p className='w-full h-[300px] bg-gray-500 rounded-sm' />
-                    }
+                    <div className='flex items-center space-x-4'>
+                        <span className='block h-12 w-12 aspect-square border border-yellow rounded-full' >
+                            <img
+                                src={avatarImg}
+                                alt="company-logo"
+                                className='w-full rounded-full object-cover h-full'
+                            />
+                        </span>
+                        <div className=' text-sm'>
+                            <p className=' font-bold'>Adeyanju Adeyemi</p>
+                            <p className=' font-light'>Innoloft Developer</p>
+                        </div>
+                    </div>
+                    <div className='space-y-3'>
+                        <p className='flex items-center space-x-5'>
+                            <MapPinIcon className='h-5 w-5' />
+                            <span>Jülicher Straße 72a, 52070 Aachen, Germany</span>
+                        </p>
+                        {
+                            page !== "edit-product" &&
+                            <p className='w-full h-[300px] bg-gray-500 rounded-sm' />
+                        }
+
+                    </div>
+
 
                 </div>
+            }
 
 
-            </div>
 
         </section>
     )

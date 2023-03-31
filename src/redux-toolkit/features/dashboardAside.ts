@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { RootState } from '../store';
+import type { PayloadAction } from '@reduxjs/toolkit'
 
-const initialState = {
+interface DashboardAsideState {
+    isOpen: boolean
+}
+
+const initialState: DashboardAsideState = {
     isOpen: false
 }
 
@@ -9,14 +13,13 @@ const dashboardAsideSlice = createSlice({
     name: "dashboardAside",
     initialState,
     reducers: {
-        toggleAsideDisplay(state, { payload }) {
+        toggleAsideDisplay(state, { payload }: PayloadAction<boolean>) {
             state.isOpen = payload;
         },
     },
 })
 
 
-export const getDashboardAsideState = (state: RootState) => state.dashboardAside
 
 export const { toggleAsideDisplay } = dashboardAsideSlice.actions;
 export default dashboardAsideSlice;

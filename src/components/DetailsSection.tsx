@@ -22,7 +22,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                                 className='border border-sec-gray px-2 py-1 rounded-lg text-xs'
                                 placeholder='Add new lable...'
                             />
-                            <button className='bg-primary p-2 rounded-lg cursor-pointer'>
+                            <button className={`bg-primary p-2 rounded-lg cursor-pointer`}>
                                 <PlusIcon className='w-3 h-3 text-white' />
                             </button>
                         </div>
@@ -32,7 +32,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                             <small>Label 1</small>
                             {
                                 page === "edit-product" &&
-                                <small> <XMarkIcon className='w-3 h-3 cursor-pointer text-primary' /></small>
+                                <small> <XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
                             }
 
                         </span>
@@ -40,14 +40,14 @@ function DetailsSection({ page }: ProductSectionTypes) {
                             <small>Label 2</small>
                             {
                                 page === "edit-product" &&
-                                <small> <XMarkIcon className='w-3 h-3 cursor-pointer text-primary' /></small>
+                                <small> <XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
                             }
                         </span>
                         <span className='flex items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                             <small>Label 3</small>
                             {
                                 page === "edit-product" &&
-                                <small> <XMarkIcon className='w-3 h-3 cursor-pointer text-primary' /></small>
+                                <small> <XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
                             }
                         </span>
                     </p>
@@ -65,7 +65,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                                 className='border border-sec-gray px-2 py-1 rounded-lg text-xs'
                                 placeholder='Add new lable...'
                             />
-                            <button className='bg-primary p-2 rounded-lg cursor-pointer'>
+                            <button className={`bg-primary p-2 rounded-lg cursor-pointer`}>
                                 <PlusIcon className='w-3 h-3 text-white' />
                             </button>
                         </div>
@@ -75,21 +75,21 @@ function DetailsSection({ page }: ProductSectionTypes) {
                             <small>Label 1</small>
                             {
                                 page === "edit-product" &&
-                                <small> <XMarkIcon className='w-3 h-3 cursor-pointer text-primary' /></small>
+                                <small> <XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
                             }
                         </span>
                         <span className='flex items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                             <small>Label 2</small>
                             {
                                 page === "edit-product" &&
-                                <small> <XMarkIcon className='w-3 h-3 cursor-pointer text-primary' /></small>
+                                <small> <XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
                             }
                         </span>
                         <span className='flex items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                             <small>Label 3</small>
                             {
                                 page === "edit-product" &&
-                                <small> <XMarkIcon className='w-3 h-3 cursor-pointer text-primary' /></small>
+                                <small> <XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
                             }
                         </span>
                     </p>
@@ -109,7 +109,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                                 className='border border-sec-gray px-2 py-1 rounded-lg text-xs'
                                 placeholder='Add new lable...'
                             />
-                            <button className='bg-primary p-2 rounded-lg cursor-pointer'>
+                            <button className={`bg-primary p-2 rounded-lg cursor-pointer`}>
                                 <PlusIcon className='w-3 h-3 text-white' />
                             </button>
                         </div>
@@ -120,7 +120,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                             <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus sit sapiente voluptas alias quo similique velit eaque vitae obcaecati possimus maxime et sequi itaque repellendus optio voluptate, consequatur eius! Odio.</small>
                             {
                                 page === "edit-product" &&
-                                <small> <XMarkIcon className='w-3 h-3 cursor-pointer text-primary' /></small>
+                                <small> <XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
                             }
                         </span>
                     </p>
@@ -138,7 +138,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                                 className='border border-sec-gray px-2 py-1 rounded-lg text-xs'
                                 placeholder='Add new lable...'
                             />
-                            <button className='bg-primary p-2 rounded-lg cursor-pointer'>
+                            <button className={`bg-primary p-2 rounded-lg cursor-pointer`}>
                                 <PlusIcon className='w-3 h-3 text-white' />
                             </button>
                         </div>
@@ -148,7 +148,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                             <small>1000$</small>
                             {
                                 page === "edit-product" &&
-                                <small> <XMarkIcon className='w-3 h-3 cursor-pointer text-primary' /></small>
+                                <small> <XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
                             }
                         </span>
                     </p>

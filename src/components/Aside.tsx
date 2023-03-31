@@ -1,13 +1,13 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import avatarImg from '@/assets/code.jpeg'
-import { useDispatch } from 'react-redux'
 import { toggleAsideDisplay } from '@/redux-toolkit/features/dashboardAside'
+import { useAppDispatch } from '@/redux-toolkit/hooks'
 
 
 
 function Aside() {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch();
     return (
         <aside className=' bg-white h-full space-y-5 py-4 px-2 '>
             <div className='flex items-center space-x-4'>
