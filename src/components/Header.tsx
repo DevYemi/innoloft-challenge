@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import companyLogo from "@/assets/logo.png"
 import gsap from "gsap"
+import { Link } from 'react-router-dom'
 
 interface PropTypes {
     isAsideOpen: boolean,
@@ -8,6 +9,11 @@ interface PropTypes {
 }
 
 function Header({ isAsideOpen, toggleAsideDisplay }: PropTypes) {
+
+    useEffect(() => {
+        // Animate hamburger anytime isAside value changes
+        animateHamburger(isAsideOpen);
+    }, [isAsideOpen])
 
 
     const animateHamburger = (isOpen: boolean) => {
@@ -38,17 +44,17 @@ function Header({ isAsideOpen, toggleAsideDisplay }: PropTypes) {
     return (
         <header className='flex sticky top-0 z-[2] justify-between items-center bg-primary py-4 px-2 md:block'>
             <div className='md:max-w-app-fit md:mx-auto'>
-                <span>
+                <Link to="/">
                     <img
                         src={companyLogo}
                         alt="company-logo"
                     />
-                </span>
+                </Link>
             </div>
             <div
                 id='Nav-hamburger'
                 className='cursor-pointer space-y-1 md:hidden'
-                onClick={() => { animateHamburger(!isAsideOpen); toggleAsideDisplay(!isAsideOpen) }}>
+                onClick={() => toggleAsideDisplay(!isAsideOpen)}>
                 <span className='block w-5 cursor-pointer rounded-3xl h-1 bg-white' />
                 <span className='block w-8 cursor-pointer rounded-3xl h-1 bg-white' />
                 <span className='block w-5 cursor-pointer rounded-3xl h-1 bg-white' />

@@ -2,9 +2,11 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import avatarImg from '@/assets/code.jpeg'
 
+interface PropTypes {
+    toggleAsideDisplay: (value: boolean) => void
+}
 
-
-function Aside() {
+function Aside({ toggleAsideDisplay }: PropTypes) {
     return (
         <aside className=' bg-white h-full space-y-5 py-4 px-2 '>
             <div className='flex items-center space-x-4'>
@@ -20,7 +22,7 @@ function Aside() {
                     <p className=' font-light'>Innoloft Developer</p>
                 </div>
             </div>
-            <nav className='flex flex-col'>
+            <nav onClick={() => toggleAsideDisplay(false)} className='flex flex-col'>
                 <NavLink className={({ isActive }) => (`p-4 hover:bg-gray-300 ${isActive ? "bg-gray-200" : ""} `)} to={"/"}>
                     Home Page
                 </NavLink>
