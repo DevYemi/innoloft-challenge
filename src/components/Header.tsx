@@ -2,13 +2,13 @@ import React, { useEffect } from 'react'
 import companyLogo from "@/assets/logo.png"
 import gsap from "gsap"
 import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+import { getDashboardAsideState, toggleAsideDisplay } from '@/redux-toolkit/features/dashboardAside';
 
-interface PropTypes {
-    isAsideOpen: boolean,
-    toggleAsideDisplay: (value: boolean) => void
-}
 
-function Header({ isAsideOpen, toggleAsideDisplay }: PropTypes) {
+function Header() {
+    const { isOpen: isAsideOpen } = useSelector(getDashboardAsideState);
+    const dispatch = useDispatch()
 
     useEffect(() => {
         // Animate hamburger anytime isAside value changes
@@ -54,7 +54,7 @@ function Header({ isAsideOpen, toggleAsideDisplay }: PropTypes) {
             <div
                 id='Nav-hamburger'
                 className='cursor-pointer space-y-1 md:hidden'
-                onClick={() => toggleAsideDisplay(!isAsideOpen)}>
+                onClick={() => dispatch(toggleAsideDisplay(!isAsideOpen))}>
                 <span className='block w-5 cursor-pointer rounded-3xl h-1 bg-white' />
                 <span className='block w-8 cursor-pointer rounded-3xl h-1 bg-white' />
                 <span className='block w-5 cursor-pointer rounded-3xl h-1 bg-white' />
