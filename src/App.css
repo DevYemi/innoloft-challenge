@@ -4,10 +4,43 @@
 @tailwind utilities;
 
 
+@layer base {
+  input {
+    @apply outline-primary
+  }
+}
+
+
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   font-family: 'Nunito', sans-serif;
+}
+
+
+/* React Quill Custom Styles */
+.ql-container {
+  border-bottom-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  background: white;
+}
+
+/* Snow Theme */
+.ql-snow.ql-toolbar {
+  display: block;
+  background: white;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+}
+
+/* Bubble Theme */
+.ql-bubble .ql-editor {
+  border: 1px solid #ccc;
+  border-radius: 0.5em;
+}
+
+.ql-editor {
+  min-height: 18em;
 }
