@@ -27,6 +27,11 @@ export default function GetRoutes() {
                   <MainPage />
                </Suspense>
             }
+            errorElement={
+               <Suspense fallback={<LoadingSpinner />}>
+                  <ErrorPage />
+               </Suspense>
+            }
          />
          <Route
             path="product"
@@ -35,12 +40,22 @@ export default function GetRoutes() {
                   <ProductPage />
                </Suspense>
             }
+            errorElement={
+               <Suspense fallback={<LoadingSpinner />}>
+                  <ErrorPage />
+               </Suspense>
+            }
          />
          <Route
             path="product/edit"
             element={
                <Suspense fallback={<LoadingSpinner />}>
                   <EditProductPage />
+               </Suspense>
+            }
+            errorElement={
+               <Suspense fallback={<LoadingSpinner />}>
+                  <ErrorPage />
                </Suspense>
             }
          />

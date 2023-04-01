@@ -6,13 +6,20 @@ import { useAppSelector } from '@/redux-toolkit/hooks';
 import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfigurationSlice';
 import { useEffect } from "react";
 import { useGetProductQuery } from "@/redux-toolkit/api/productSlice";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 
 function Dashboard() {
     const { isOpen: isAsideOpen } = useAppSelector((state) => state.dashboardAside);
     const { data: appConfig, error: appConfigError } = useGetAppConfigurationQuery(import.meta.env.VITE_APP_ID);
-    const { data: productData } = useGetProductQuery(6781);
+    const { data: productData, error: productDataError, isLoading: productDataIsLoading } = useGetProductQuery(6781);
     const location = useLocation()
+
+    const ErrorText = () => (
+        <div className="text-center h-full flex justify-center items-center">
+            An Error Occurred while trying to fetch this product, please try again later
+        </div>
+    )
 
     useEffect(() => {
         window.scrollTo({ top: 0 })
@@ -40,7 +47,15 @@ function Dashboard() {
                     </section>
 
                     <section className="md:flex-[.7]">
-                        <Outlet context={productData} />
+                        {
+                            productDataIsLoading ?
+                                <LoadingSpinner />
+                                : productDataError ?
+                                    <ErrorText />
+                                    :
+                                    <Outlet context={productData} />
+                        }
+
                     </section>
                 </main>
 
