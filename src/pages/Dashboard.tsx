@@ -1,5 +1,5 @@
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from '@/components/Header';
 import Aside from "@/components/Aside";
 import { useAppSelector } from '@/redux-toolkit/hooks';
@@ -11,8 +11,12 @@ import { useGetProductQuery } from "@/redux-toolkit/api/productSlice";
 function Dashboard() {
     const { isOpen: isAsideOpen } = useAppSelector((state) => state.dashboardAside);
     const { data: appConfig, error: appConfigError } = useGetAppConfigurationQuery(import.meta.env.VITE_APP_ID);
-    const { data: productData } = useGetProductQuery(6781)
+    const { data: productData } = useGetProductQuery(6781);
+    const location = useLocation()
 
+    useEffect(() => {
+        window.scrollTo({ top: 0 })
+    }, [location.pathname])
 
     useEffect(() => {
         // update color variable after appconfig has been fetched
