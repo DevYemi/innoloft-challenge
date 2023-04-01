@@ -1,16 +1,16 @@
 import React, { MouseEvent, useEffect, useState } from 'react'
 import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/solid"
 import { Cog8ToothIcon, BriefcaseIcon, ClockIcon, BanknotesIcon } from "@heroicons/react/24/outline"
-import { ProductSectionTypes } from './types'
+import { ChangesType, formDetailsType, ProductSectionTypes } from './types'
 import { useOutletContext } from 'react-router-dom';
 import { useGetTrlListQuery } from '@/redux-toolkit/api/trlSlice';
 import { nanoid } from '@reduxjs/toolkit';
 import { useUpdateProductMutation } from '@/redux-toolkit/api/productSlice';
+import { ProductDataType } from '@/redux-toolkit/types';
 
 
 
-type ChangesType = "Add" | "Remove"
-type formDetailsType = { list?: any[], inputValue: string, value?: string, }
+
 
 
 function DetailsSection({ page }: ProductSectionTypes) {
@@ -21,7 +21,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
     const [trl, setTrl] = useState<formDetailsType>({ value: "", inputValue: "" });
 
 
-    const productData = useOutletContext<any>();
+    const productData = useOutletContext<ProductDataType | undefined>();
     const { data: trlDataList } = useGetTrlListQuery("");
     const [updateProductTrigger, { isLoading: isLoadingUpdateProduct }] = useUpdateProductMutation()
 
@@ -29,7 +29,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
     const handleTechnologyChanges = (type: ChangesType, id: string) => {
 
         if (type === "Add") {
-            const newArr = [...technology.list!, { id, name: technology.inputValue }]
+            const newArr = [...technology.list!, { id, name: technology.inputValue }] as ProductDataType["categories"]
             setTechnology({
                 inputValue: "",
                 list: newArr
@@ -45,7 +45,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
     const handleBusinessChanges = (type: ChangesType, id: string) => {
 
         if (type === "Add") {
-            const newArr = [...businessModel.list!, { id, name: businessModel.inputValue }]
+            const newArr = [...businessModel.list!, { id, name: businessModel.inputValue }] as ProductDataType["businessModels"]
             setBusinessModel({
                 inputValue: "",
                 list: newArr
@@ -63,7 +63,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
         try {
             const objectData = {
                 ...productData,
-                productId: productData.id,
+                productId: productData!.id,
                 businessModels: businessModel.list,
                 categories: technology.list,
                 trl: trlDataList?.filter((item => item.id === trl.inputValue)),
@@ -84,22 +84,25 @@ function DetailsSection({ page }: ProductSectionTypes) {
 
     const onCancelClick = () => {
         setIsEditing(false)
-        setTechnology({
-            inputValue: "",
-            list: productData.categories
-        })
-        setBusinessModel({
-            inputValue: "",
-            list: productData.businessModels
-        })
-        setInvestmentCost({
-            inputValue: productData.investmentEffort,
-            value: productData.investmentEffort
-        })
-        setTrl({
-            inputValue: productData.trl.id,
-            value: productData.trl.name
-        })
+        if (productData) {
+            setTechnology({
+                inputValue: "",
+                list: productData.categories
+            })
+            setBusinessModel({
+                inputValue: "",
+                list: productData.businessModels
+            })
+            setInvestmentCost({
+                inputValue: productData.investmentEffort,
+                value: productData.investmentEffort
+            })
+            setTrl({
+                inputValue: productData.trl.id.toString(),
+                value: productData.trl.name
+            })
+        }
+
     }
 
 
@@ -122,7 +125,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                 value: productData.investmentEffort
             })
             setTrl({
-                inputValue: productData.trl.id,
+                inputValue: productData.trl.id.toString(),
                 value: productData.trl.name
             })
         }
@@ -158,12 +161,12 @@ function DetailsSection({ page }: ProductSectionTypes) {
                     }
                     <p className='grid grid-cols-[repeat(auto-fill,_minmax(100px,_1fr))] gap-3'>
                         {
-                            technology.list?.map((cat: any) => (
+                            technology.list?.map(cat => (
                                 <span key={cat.id} className='flex  justify-between items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                                     <small className='truncate'>{cat.name}</small>
                                     {
                                         (page === "edit-product" && isEditing) &&
-                                        <small onClick={() => handleTechnologyChanges("Remove", cat.id)}> <XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
+                                        <small onClick={() => handleTechnologyChanges("Remove", cat.id.toString())}> <XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
                                     }
 
                                 </span>
@@ -194,12 +197,12 @@ function DetailsSection({ page }: ProductSectionTypes) {
                     }
                     <p className='grid grid-cols-[repeat(auto-fill,_minmax(100px,_1fr))] gap-3'>
                         {
-                            businessModel.list?.map((bus: any) => (
+                            businessModel.list?.map(bus => (
                                 <span key={bus?.id} className='flex  justify-between items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                                     <small className='truncate'>{bus.name}</small>
                                     {
                                         (page === "edit-product" && isEditing) &&
-                                        <small onClick={() => handleBusinessChanges("Remove", bus.id)}><XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
+                                        <small onClick={() => handleBusinessChanges("Remove", bus.id.toString())}><XMarkIcon className={`w-3 h-3 cursor-pointer text-primary`} /></small>
                                     }
 
                                 </span>

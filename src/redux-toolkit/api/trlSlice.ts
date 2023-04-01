@@ -1,11 +1,8 @@
+import { TrlListType } from "../types";
 import { apiSlice } from "./apiSlice";
 
 
-interface TrlListType {
-    description: null | string,
-    id: string,
-    name: string
-}
+
 
 
 const extendedApiSlice = apiSlice.injectEndpoints({

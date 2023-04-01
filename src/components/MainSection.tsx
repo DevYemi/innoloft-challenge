@@ -6,18 +6,25 @@ import { MapPinIcon, TrashIcon } from "@heroicons/react/24/outline"
 import ReactQuill from 'react-quill'
 import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfigurationSlice'
 import { useOutletContext } from 'react-router-dom'
+import MapBox from './MapBox'
+import { ProductDataType } from '@/redux-toolkit/types'
+
+
 
 function MainSection({ page }: ProductSectionTypes) {
     const { data: appConfig } = useGetAppConfigurationQuery(import.meta.env.VITE_APP_ID);
     const [description, setDescription] = useState();
     const [isEditing, setIsEditing] = useState(page === "edit-product");
-    const productData = useOutletContext<any>();
+    const productData = useOutletContext<ProductDataType | undefined>();
+
+    console.log(productData);
 
 
     const descriptionOnChange = (state: any) => {
         setDescription(state);
         console.log(state)
     }
+
     return (
         <section id='mainSection' className={`rounded-lg border-2 border-gray-300 md:grid ${appConfig?.hasUserSection ? "md:grid-cols-[1fr,0.7fr] md:gap-4" : "grid-cols-1"}  `}>
             <div className=''>
@@ -112,8 +119,8 @@ function MainSection({ page }: ProductSectionTypes) {
                             <span>{`${productData?.company.address.street} ${productData?.company.address.house}, ${productData?.company.address.zipCode} ${productData?.company.address.city.name}, ${productData?.company.address.country.name}`}</span>
                         </p>
                         {
-                            (page !== "edit-product" && !isEditing) &&
-                            <p className='w-full h-[300px] bg-gray-500 rounded-sm' />
+                            (page !== "edit-product" && !isEditing && productData) &&
+                            <MapBox address={productData.company.address} />
                         }
 
                     </div>

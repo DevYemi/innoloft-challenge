@@ -1,4 +1,7 @@
+import { ProductDataType } from "../types";
 import { apiSlice } from "./apiSlice";
+
+
 
 const extendedApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -8,6 +11,7 @@ const extendedApiSlice = apiSlice.injectEndpoints({
                 method: "GET"
             }),
             providesTags: (result, error, productId) => [{ type: 'Product', id: productId }],
+            transformResponse: (response: ProductDataType) => response
 
         }),
         updateProduct: builder.mutation({
