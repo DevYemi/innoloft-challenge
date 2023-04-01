@@ -45,7 +45,7 @@ function Header() {
     }
 
     return (
-        <header className={`flex sticky top-0 z-[2] justify-between items-center bg-white py-4 px-2 md:block md:max-w-app-fit md:mx-auto`}>
+        <header className={`flex sticky top-0 z-[2] justify-between items-center bg-sec-gray py-4 px-2 md:block md:max-w-app-fit md:mx-auto`}>
             <Link to="/" className='block w-[200px] h-[50px] '>
                 <img
                     src={appConfig?.logo ? appConfig.logo : appConfigError ? companyLogo : ""}

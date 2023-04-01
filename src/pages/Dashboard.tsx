@@ -5,13 +5,14 @@ import Aside from "@/components/Aside";
 import { useAppSelector } from '@/redux-toolkit/hooks';
 import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfigurationSlice';
 import { useEffect } from "react";
+import { useGetProductQuery } from "@/redux-toolkit/api/productSlice";
 
 
 function Dashboard() {
     const { isOpen: isAsideOpen } = useAppSelector((state) => state.dashboardAside);
     const { data: appConfig, error: appConfigError } = useGetAppConfigurationQuery(import.meta.env.VITE_APP_ID);
+    const { data: productData } = useGetProductQuery(6781)
 
-    console.log(appConfig)
 
     useEffect(() => {
         // update color variable after appconfig has been fetched
@@ -35,7 +36,7 @@ function Dashboard() {
                     </section>
 
                     <section className="md:flex-[.7]">
-                        <Outlet />
+                        <Outlet context={productData} />
                     </section>
                 </main>
 

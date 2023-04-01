@@ -5,10 +5,14 @@ import { CheckBadgeIcon, CheckIcon } from "@heroicons/react/24/solid"
 import { MapPinIcon, TrashIcon } from "@heroicons/react/24/outline"
 import ReactQuill from 'react-quill'
 import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfigurationSlice'
+import { useOutletContext } from 'react-router-dom'
 
 function MainSection({ page }: ProductSectionTypes) {
     const { data: appConfig } = useGetAppConfigurationQuery(import.meta.env.VITE_APP_ID);
     const [description, setDescription] = useState();
+    const [isEditing, setIsEditing] = useState(page === "edit-product");
+    const productData = useOutletContext<any>();
+
 
     const descriptionOnChange = (state: any) => {
         setDescription(state);
@@ -18,11 +22,14 @@ function MainSection({ page }: ProductSectionTypes) {
         <section id='mainSection' className={`rounded-lg border-2 border-gray-300 md:grid ${appConfig?.hasUserSection ? "md:grid-cols-[1fr,0.7fr] md:gap-4" : "grid-cols-1"}  `}>
             <div className=''>
                 <div className='relative'>
-                    <img
-                        src={avatarImg}
-                        alt="company-logo"
-                        className='w-full h-full rounded-t-lg'
-                    />
+                    <div className='max-h-[400px] w-full overflow-hidden'>
+                        <img
+                            src={productData?.picture}
+                            alt="company-logo"
+                            className='w-full h-full  object-cover  rounded-t-lg'
+                        />
+                    </div>
+
                     <div className='absolute top-0 flex items-center bg-white w-fit rounded-tl-lg rounded-br-lg '>
                         <span className={`block w-fit bg-primary p-2 rounded-tl-lg rounded-br-lg`}>
                             <CheckBadgeIcon className='h-6 w-6 text-white' />
@@ -30,7 +37,7 @@ function MainSection({ page }: ProductSectionTypes) {
                         <span className='block p-2 w-fit text-black font-bold'>Patent</span>
                     </div>
                     {
-                        page === "edit-product" &&
+                        (page === "edit-product" && isEditing) &&
                         <div className='absolute bg-white top-0 p-3 right-0 rounded-bl-lg cursor-pointer'>
                             <TrashIcon className='h-4 w-4 text-black' />
                         </div>
@@ -57,7 +64,7 @@ function MainSection({ page }: ProductSectionTypes) {
                                 <ReactQuill theme="snow" value={description} onChange={descriptionOnChange} />
                                 <div className='flex items-center justify-end ml-auto space-x-4 opacity-40'>
                                     <button className={`text-primary px-3 py-1`}>Cancel</button>
-                                    <button className={`bg-${appConfig?.mainColor} text-white flex items-center space-x-2 px-3 py-1 rounded-lg`}>
+                                    <button className={`bg-primary text-white flex items-center space-x-2 px-3 py-1 rounded-lg`}>
                                         <CheckIcon className='h-4 w-4 text-white' />
                                         <span>Save</span>
                                     </button>
@@ -82,30 +89,30 @@ function MainSection({ page }: ProductSectionTypes) {
                     <div className=''>
                         <img
                             width={200}
-                            src={"https://img.innoloft.com/logo.svg"}
+                            src={productData?.company.logo}
                             alt="company-logo"
                         />
                     </div>
                     <div className='flex items-center space-x-4'>
                         <span className='block h-12 w-12 aspect-square border border-yellow rounded-full' >
                             <img
-                                src={avatarImg}
+                                src={productData?.user.profilePicture}
                                 alt="company-logo"
                                 className='w-full rounded-full object-cover h-full'
                             />
                         </span>
                         <div className=' text-sm'>
-                            <p className=' font-bold'>Adeyanju Adeyemi</p>
-                            <p className=' font-light'>Innoloft Developer</p>
+                            <p className=' font-bold'>{`${productData?.user.firstName} ${productData?.user.lastName}`}</p>
+                            <p className=' font-light'>{productData?.company.name}</p>
                         </div>
                     </div>
                     <div className='space-y-3'>
                         <p className='flex items-center space-x-5'>
                             <MapPinIcon className='h-5 w-5' />
-                            <span>Jülicher Straße 72a, 52070 Aachen, Germany</span>
+                            <span>{`${productData?.company.address.street} ${productData?.company.address.house}, ${productData?.company.address.zipCode} ${productData?.company.address.city.name}, ${productData?.company.address.country.name}`}</span>
                         </p>
                         {
-                            page !== "edit-product" &&
+                            (page !== "edit-product" && !isEditing) &&
                             <p className='w-full h-[300px] bg-gray-500 rounded-sm' />
                         }
 
