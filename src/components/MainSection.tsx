@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { ProductSectionTypes } from './types'
-import avatarImg from '@/assets/code.jpeg'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { formDetailsType, ProductSectionTypes } from './types'
 import { CheckBadgeIcon, CheckIcon } from "@heroicons/react/24/solid"
 import { MapPinIcon, TrashIcon } from "@heroicons/react/24/outline"
 import ReactQuill from 'react-quill'
@@ -8,26 +7,69 @@ import { useGetAppConfigurationQuery } from '@/redux-toolkit/api/appConfiguratio
 import { useOutletContext } from 'react-router-dom'
 import MapBox from './MapBox'
 import { ProductDataType } from '@/redux-toolkit/types'
+import { useUpdateProductMutation } from '@/redux-toolkit/api/productSlice'
 
 
 
 function MainSection({ page }: ProductSectionTypes) {
+    const descriptionWrapper = useRef<HTMLDivElement | null>(null)
     const { data: appConfig } = useGetAppConfigurationQuery(import.meta.env.VITE_APP_ID);
-    const [description, setDescription] = useState();
+    const [description, setDescription] = useState<formDetailsType>({ value: "", inputValue: "" });
     const [isEditing, setIsEditing] = useState(page === "edit-product");
     const productData = useOutletContext<ProductDataType | undefined>();
+    const [updateProductTrigger, { isLoading: isLoadingUpdateProduct }] = useUpdateProductMutation()
 
-    console.log(productData);
 
+    const updateMainSection = async () => {
+        try {
+            const objectData = {
+                ...productData,
+                productId: productData?.id,
+                description: description.inputValue
 
-    const descriptionOnChange = (state: any) => {
-        setDescription(state);
-        console.log(state)
+            }
+
+            // make request to db
+            await updateProductTrigger(objectData).unwrap()
+
+            setIsEditing(false);
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
+
+    const updatseDescription = useCallback((state: string) => {
+        setDescription({
+            value: state,
+            inputValue: state
+        });
+        if (descriptionWrapper.current) {
+            descriptionWrapper.current!.innerHTML = state
+        }
+    }, [])
+
+    const onCancelClick = () => { // reset all values
+        setIsEditing(false)
+        setDescription({
+            value: productData!.description,
+            inputValue: productData!.description
+        })
+
+    }
+
+
+
+    useEffect(() => {
+        if (productData) {
+            updatseDescription(productData.description)
+        }
+    }, [productData, updatseDescription])
+
     return (
-        <section id='mainSection' className={`rounded-lg border-2 border-gray-300 md:grid ${appConfig?.hasUserSection ? "md:grid-cols-[1fr,0.7fr] md:gap-4" : "grid-cols-1"}  `}>
-            <div className=''>
+        <section id='mainSection' className={`rounded-lg border-2 border-gray-300 md:grid ${isLoadingUpdateProduct ? "opacity-50" : "opacity-100"} ${appConfig?.hasUserSection ? "md:grid-cols-[1fr,0.7fr] md:gap-4" : "grid-cols-1"}  `}>
+            <div className=' space-y-5'>
                 <div className='relative'>
                     <div className='max-h-[400px] w-full overflow-hidden'>
                         <img
@@ -54,35 +96,32 @@ function MainSection({ page }: ProductSectionTypes) {
                 </div>
                 <div className='p-2 space-y-4 md:p-4'>
                     {
-                        page === "edit-product" ?
-                            <input
-                                type="text"
-                                placeholder='Add a youtube or vimeo link'
-                                className='w-full p-2 border border-gray-300 rounded-lg'
-                            />
-                            :
-                            <h1 className='font-bold '>
-                                Intelligent Finite Elements in Structural mechanics
-                            </h1>
+                        (page === "edit-product" && isEditing) &&
+                        <ReactQuill theme="snow" value={description.value} onChange={updatseDescription} />
                     }
+                    <div className={`${isEditing ? "hidden" : "block"}`} ref={descriptionWrapper} />
                     {
-                        page === "edit-product" ?
-                            <>
-                                <ReactQuill theme="snow" value={description} onChange={descriptionOnChange} />
-                                <div className='flex items-center justify-end ml-auto space-x-4 opacity-40'>
-                                    <button className={`text-primary px-3 py-1`}>Cancel</button>
-                                    <button className={`bg-primary text-white flex items-center space-x-2 px-3 py-1 rounded-lg`}>
+                        (page === "edit-product") &&
+                        <div className='flex items-center justify-end ml-auto space-x-4 '>
+                            {
+                                isEditing &&
+                                <button onClick={onCancelClick} className={`text-primary px-3 py-1`}>Cancel</button>
+                            }
+
+                            {
+                                isEditing ?
+                                    <button onClick={updateMainSection} className={`bg-primary text-white flex items-center space-x-2 px-3 py-1 rounded-lg`}>
                                         <CheckIcon className='h-4 w-4 text-white' />
                                         <span>Save</span>
                                     </button>
-                                </div>
-                            </>
-                            :
-                            <p className=''>
-                                In structural mechanics, the Finite Element Method is used to simulate structural deformations and loads, e.g. for the design of components in mechanical or civil engineering. The more complex the structural deformations are, the longer simulation times associated with convergence problems can last. This is where the present invention comes in, by combining the classical Finite Element Method with artificial intelligence. This is the first method in the literature that significantly improves simulation times and convergence properties in this way.
+                                    :
+                                    <button onClick={() => setIsEditing(true)} className={`bg-primary text-white flex items-center space-x-2 px-3 py-1 rounded-lg`}>
+                                        <CheckIcon className='h-4 w-4 text-white' />
+                                        <span >Edit</span>
+                                    </button>
+                            }
 
-                                Further information you can find in the attached technology offer.
-                            </p>
+                        </div>
                     }
 
 
