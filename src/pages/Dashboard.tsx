@@ -15,13 +15,14 @@ function Dashboard() {
     const { data: productData, error: productDataError, isLoading: productDataIsLoading } = useGetProductQuery(6781);
     const location = useLocation()
 
-    const ErrorText = () => (
+    const ErrorText = () => ( // error element when product fetching fails
         <div className="text-center h-full flex justify-center items-center">
             An Error Occurred while trying to fetch this product, please try again later
         </div>
     )
 
     useEffect(() => {
+        // always scroll to the top of the page on first render
         window.scrollTo({ top: 0 })
     }, [location.pathname])
 

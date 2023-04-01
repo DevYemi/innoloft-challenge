@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CheckIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/solid"
 import { Cog8ToothIcon, BriefcaseIcon, ClockIcon, BanknotesIcon } from "@heroicons/react/24/outline"
 import { ChangesType, formDetailsType, ProductSectionTypes } from './types'
@@ -35,7 +35,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                 list: newArr
             })
         } else {
-            const newArr = technology.list!.filter((item: any) => item.id !== id);
+            const newArr = technology.list!.filter(item => item.id.toString() !== id.toString());
             setTechnology({
                 inputValue: "",
                 list: newArr
@@ -51,7 +51,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                 list: newArr
             })
         } else {
-            const newArr = businessModel.list!.filter((item: any) => item.id !== id);
+            const newArr = businessModel.list!.filter(item => item.id.toString() !== id.toString());
             setBusinessModel({
                 inputValue: "",
                 list: newArr
@@ -83,6 +83,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
 
 
     const onCancelClick = () => {
+        // reset all values
         setIsEditing(false)
         if (productData) {
             setTechnology({
@@ -131,7 +132,6 @@ function DetailsSection({ page }: ProductSectionTypes) {
         }
     }, [productData])
 
-    // console.log(productData)
 
 
     return (
@@ -286,8 +286,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                                 <span>Save</span>
                             </button>
                             :
-                            <button onClick={() => setIsEditing(true)} className={`bg-primary text-white flex items-center space-x-2 px-3 py-1 rounded-lg`}>
-                                <CheckIcon className='h-4 w-4 text-white' />
+                            <button onClick={() => setIsEditing(true)} className={`bg-primary text-white px-3 py-1 rounded-lg`}>
                                 <span >Edit</span>
                             </button>
                     }

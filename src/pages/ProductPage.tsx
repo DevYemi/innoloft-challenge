@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import DetailsSection from '@/components/DetailsSection'
 import VideoSection from '@/components/VideoSection'
 import MainSection from '@/components/MainSection'
-import { useOutletContext } from "react-router-dom";
 
 function ProductPage() {
 

@@ -88,8 +88,7 @@ function VideoSection({ page }: ProductSectionTypes) {
                                         <span>Save</span>
                                     </button>
                                     :
-                                    <button onClick={() => setIsEditing(true)} className={`bg-primary text-white flex items-center space-x-2 px-3 py-1 rounded-lg`}>
-                                        <CheckIcon className='h-4 w-4 text-white' />
+                                    <button onClick={() => setIsEditing(true)} className={`bg-primary text-white px-3 py-1 rounded-lg`}>
                                         <span >Edit</span>
                                     </button>
                             }

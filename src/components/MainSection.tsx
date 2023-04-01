@@ -20,7 +20,7 @@ function MainSection({ page }: ProductSectionTypes) {
     const [updateProductTrigger, { isLoading: isLoadingUpdateProduct }] = useUpdateProductMutation()
 
 
-    const updateMainSection = async () => {
+    const updateMainSection = async () => { // update Main section form deatils at the backend
         try {
             const objectData = {
                 ...productData,
@@ -40,7 +40,7 @@ function MainSection({ page }: ProductSectionTypes) {
     }
 
 
-    const updatseDescription = useCallback((state: string) => {
+    const updateDescription = useCallback((state: string) => {
         setDescription({
             value: state,
             inputValue: state
@@ -63,9 +63,9 @@ function MainSection({ page }: ProductSectionTypes) {
 
     useEffect(() => {
         if (productData) {
-            updatseDescription(productData.description)
+            updateDescription(productData.description)
         }
-    }, [productData, updatseDescription])
+    }, [productData, updateDescription])
 
     return (
         <section id='mainSection' className={`rounded-lg border-2 border-gray-300 md:grid ${isLoadingUpdateProduct ? "opacity-50" : "opacity-100"} ${appConfig?.hasUserSection ? "md:grid-cols-[1fr,0.7fr] md:gap-4" : "grid-cols-1"}  `}>
@@ -97,7 +97,7 @@ function MainSection({ page }: ProductSectionTypes) {
                 <div className='p-2 space-y-4 md:p-4'>
                     {
                         (page === "edit-product" && isEditing) &&
-                        <ReactQuill theme="snow" value={description.value} onChange={updatseDescription} />
+                        <ReactQuill theme="snow" value={description.value} onChange={updateDescription} />
                     }
                     <div className={`${isEditing ? "hidden" : "block"}`} ref={descriptionWrapper} />
                     {
@@ -115,8 +115,7 @@ function MainSection({ page }: ProductSectionTypes) {
                                         <span>Save</span>
                                     </button>
                                     :
-                                    <button onClick={() => setIsEditing(true)} className={`bg-primary text-white flex items-center space-x-2 px-3 py-1 rounded-lg`}>
-                                        <CheckIcon className='h-4 w-4 text-white' />
+                                    <button onClick={() => setIsEditing(true)} className={`bg-primary text-white px-3 py-1 rounded-lg`}>
                                         <span >Edit</span>
                                     </button>
                             }
