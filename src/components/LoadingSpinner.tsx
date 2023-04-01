@@ -9,7 +9,7 @@ function LoadingSpinner() {
             <Circles
                 height="80"
                 width="80"
-                color={appConfig?.mainColor}
+                color={appConfig?.mainColor || "grey"}
                 ariaLabel="circles-loading"
                 wrapperStyle={{}}
                 wrapperClass=""
