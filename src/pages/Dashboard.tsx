@@ -43,7 +43,7 @@ function Dashboard() {
             <div>
                 <Header />
                 <main className='md:flex relative max-w-app-fit mx-auto'>
-                    <section className={`fixed transition-all duration-1000 w-[90%] z-[2]  h-full max-w-[300px] ${isAsideOpen ? "left-0" : "left-[-500px]"} md:w-auto md:max-w-none md:flex-[.3] md:self-start md:h-fit md:sticky md:top-[82px] md:left-0`}>
+                    <section className={`fixed transition-all duration-1000 w-[90%] z-[2]  h-full max-w-[300px] ${isAsideOpen ? "translate-x-0" : "translate-x-[-500px]"} md:w-auto md:max-w-none md:flex-[.3] md:self-start md:h-fit md:sticky md:top-[82px] md:translate-x-0`}>
                         <Aside />
                     </section>
 

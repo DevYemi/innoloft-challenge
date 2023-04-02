@@ -29,6 +29,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
     const handleTechnologyChanges = (type: ChangesType, id: string) => {
 
         if (type === "Add") {
+            if (technology.inputValue.trim() === "") return
             const newArr = [...technology.list!, { id, name: technology.inputValue }] as ProductDataType["categories"]
             setTechnology({
                 inputValue: "",
@@ -45,6 +46,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
     const handleBusinessChanges = (type: ChangesType, id: string) => {
 
         if (type === "Add") {
+            if (businessModel.inputValue.trim() === "") return
             const newArr = [...businessModel.list!, { id, name: businessModel.inputValue }] as ProductDataType["businessModels"]
             setBusinessModel({
                 inputValue: "",
