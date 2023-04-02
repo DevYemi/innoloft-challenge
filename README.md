@@ -1,6 +1,8 @@
 # Innosoft-Challenge
 
-This application was built with react, typescript and bundled with Vite
+This application was built with react, typescript and bundled with Vite.
+
+Its hosted live on vercel [Here](https://innoloft-challenge.vercel.app/)
 
 ## Run Locally
 

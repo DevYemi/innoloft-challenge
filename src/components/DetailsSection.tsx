@@ -162,7 +162,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                     <p className='grid grid-cols-[repeat(auto-fill,_minmax(100px,_1fr))] gap-3'>
                         {
                             technology.list?.map(cat => (
-                                <span key={cat.id} className='flex  justify-between items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
+                                <span title={cat.name} key={cat.id} className='flex  justify-between items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                                     <small className='truncate'>{cat.name}</small>
                                     {
                                         (page === "edit-product" && isEditing) &&
@@ -198,7 +198,7 @@ function DetailsSection({ page }: ProductSectionTypes) {
                     <p className='grid grid-cols-[repeat(auto-fill,_minmax(100px,_1fr))] gap-3'>
                         {
                             businessModel.list?.map(bus => (
-                                <span key={bus?.id} className='flex  justify-between items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
+                                <span title={bus.name} key={bus?.id} className='flex  justify-between items-center space-x-4 bg-sec-gray py-1 px-2 rounded-3xl text-xs'>
                                     <small className='truncate'>{bus.name}</small>
                                     {
                                         (page === "edit-product" && isEditing) &&
