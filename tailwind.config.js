@@ -15,7 +15,7 @@ module.exports = {
         "sec-gray": "#E5E7EB"
       },
       maxWidth: {
-        "app-fit": "95rem"
+        "app-fit": "98rem"
       }
     },
   },
